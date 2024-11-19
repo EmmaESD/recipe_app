@@ -40,7 +40,7 @@ export default function Index() {
     router.push("/recipes/" + idMeal);
   };
 
-  const handleSubmit = (text: string) => {
+  const handleSubmit = () => {
     router.push("/recipes/search/" + text);
   };
   return (
