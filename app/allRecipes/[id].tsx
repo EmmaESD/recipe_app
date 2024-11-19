@@ -77,6 +77,9 @@ export default function RecipeDetailsScreen() {
         <Image source={{ uri: recipe.image }} style={styles.imageContent} />
         <Text>{recipe.description}</Text>
       </View>
+      <View>
+        <Text>cookio - tout droit réservé</Text>
+      </View>
     </View>
   );
 }

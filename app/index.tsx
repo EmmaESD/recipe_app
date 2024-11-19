@@ -135,6 +135,9 @@ export default function Index() {
             )}
           />
         </View>
+        <View>
+          <Text>cookio - tout droit réservé</Text>
+        </View>
       </View>
     </ScrollView>
   );
