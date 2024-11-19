@@ -1,8 +1,10 @@
-import { useRouter } from "expo-router";
-import { Button, FlatList, Image, StyleSheet, Text, View } from "react-native";
+import { useLocalSearchParams } from "expo-router";
+import { Image, StyleSheet, Text, View } from "react-native";
 
-export default function AllRecipesScreen() {
-  const router = useRouter();
+export default function RecipeDetailsScreen() {
+  // permet de récuperer l'id de la recette sur laquelle on a cliqué ?
+  const { id } = useLocalSearchParams();
+
   const meals = [
     {
       id: 1,
@@ -56,10 +58,8 @@ export default function AllRecipesScreen() {
     },
   ];
 
-  // Permet de naviguer vers une page selectionnée par un id.
-  const handleNavigateToDetails = (recipeId: Number) => {
-    router.push("allrecipes/" + recipeId);
-  };
+  //Cette fonction permet de chercher la recette en fonction de l'id selectionné
+  const recipe = meals.find((recipe) => recipe.id === parseInt(id));
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -69,67 +69,50 @@ export default function AllRecipesScreen() {
         />
         <Text style={styles.h1}>Cookio</Text>
       </View>
-      <Text style={styles.h1}>Nos recettes</Text>
-      <FlatList
-        data={meals}
-        renderItem={({ item }) => (
-          <View style={styles.recipeCard}>
-            <Text>{item.title}</Text>
-            <Image source={{ uri: item.image }} style={styles.image} />
-            <Button
-              title="Voir la recette"
-              onPress={() => handleNavigateToDetails(item.id)}
-            />
-          </View>
-        )}
-      />
+
+      <View style={styles.content}>
+        <Text style={styles.category}>{recipe.category}</Text>
+        <Text style={styles.h1}>Details de la recette {id}</Text>
+        <Text style={styles.h2}>{recipe.title}</Text>
+        <Image source={{ uri: recipe.image }} style={styles.imageContent} />
+        <Text>{recipe.description}</Text>
+      </View>
     </View>
   );
 }
 
-// Permet de créer du css dans le fichier
 const styles = StyleSheet.create({
   container: {
     display: "flex",
-    paddingHorizontal: 20,
-    paddingVertical: 80,
+    flexDirection: "column",
     gap: 40,
-  },
-
-  content: {
-    display: "flex",
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    width: "100%",
-    gap: 20,
-  },
-
-  recipeContainer: {
-    display: "flex",
-    gap: 30,
-  },
-
-  recipeCard: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 10,
-    padding: 20,
-    backgroundColor: "#e0dad1",
-    marginBottom: 10,
   },
   header: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
+    padding: 10,
   },
-  buttonCard: {
-    width: 10,
+  recipeContainer: {
+    display: "flex",
+    gap: 30,
+  },
+  content: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    width: "100%",
+    gap: 20,
+    padding: 30,
   },
   textContent: {
     display: "flex",
     gap: 10,
+  },
+  imageContent: {
+    width: 200,
+    height: 100,
   },
   image: {
     width: 100,
@@ -142,5 +125,12 @@ const styles = StyleSheet.create({
   h2: {
     fontSize: 20,
     textAlign: "center",
+  },
+  category: {
+    backgroundColor: "#d69533",
+    width: 50,
+    textAlign: "center",
+    padding: 5,
+    borderRadius: 10,
   },
 });
