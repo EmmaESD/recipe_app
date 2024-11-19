@@ -10,11 +10,11 @@ export default function RootLayout() {
         options={{ title: "Accueil", headerShown: false }}
       />
       <Stack.Screen
-        name="allRecipes/index"
+        name="recipes/index"
         options={{ title: "liste des recettes", headerShown: false }}
       />
       <Stack.Screen
-        name="allRecipes/[id]"
+        name="recipes/[id]"
         options={{ title: "Details d'une recette", headerShown: false }}
       />
     </Stack>

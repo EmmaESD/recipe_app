@@ -30,12 +30,12 @@ export default function Index() {
 
   //permet de naviguer vers un page
   const handleNavigateToAllRecipes = () => {
-    router.push("allRecipes");
+    router.push("/recipes");
   };
 
   //permet de naviguer vers une page avec son ID
   const handleNavigateToDetails = (idMeal: Number) => {
-    router.push("allrecipes/" + idMeal);
+    router.push("/recipes/" + idMeal);
   };
   return (
     <ScrollView>
@@ -91,7 +91,7 @@ export default function Index() {
                 />
                 <Button
                   title="Voir la recette"
-                  onPress={() => handleNavigateToDetails(item.id)}
+                  onPress={() => handleNavigateToDetails(item.idMeal)}
                 />
               </View>
             )}

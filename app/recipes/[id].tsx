@@ -11,15 +11,13 @@ export default function RecipeDetailsScreen() {
   useEffect(() => {
     (async () => {
       const mealJson = await fetch(
-        "https://www.themealdb.com/api/json/v1/1/search.php?s="
+        `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
       );
       const meals = await mealJson.json();
-      setMeals(meals.meals);
+      setMeals(meals.meals[0]);
     })();
   }, []);
 
-  //Cette fonction permet de chercher la recette en fonction de l'id selectionné
-  const recipe = meals.find((meals) => meals.idMeal === parseInt(id));
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -32,7 +30,7 @@ export default function RecipeDetailsScreen() {
 
       <View style={styles.content}>
         <Text style={styles.category}>{meals.strCategory}</Text>
-        <Text style={styles.h1}>Details de la recette {idMeal}</Text>
+        <Text style={styles.h1}>Details de la recette {id}</Text>
         <Text style={styles.h2}>{meals.strMeal}</Text>
         <Image
           source={{ uri: meals.strMealThumb }}
@@ -94,7 +92,7 @@ const styles = StyleSheet.create({
   },
   category: {
     backgroundColor: "#d69533",
-    width: 50,
+    width: 80,
     textAlign: "center",
     padding: 5,
     borderRadius: 10,

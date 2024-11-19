@@ -25,8 +25,8 @@ export default function AllRecipesScreen() {
   }, []);
 
   // Permet de naviguer vers une page selectionnée par un id.
-  const handleNavigateToDetails = (idMeal: Number) => {
-    router.push("allrecipes/" + idMeal);
+  const handleNavigateToDetails = (idMeal: string) => {
+    router.push(`recipes/${idMeal}`);
   };
   return (
     <ScrollView>
@@ -47,7 +47,7 @@ export default function AllRecipesScreen() {
               <Image source={{ uri: item.strMealThumb }} style={styles.image} />
               <Button
                 title="Voir la recette"
-                onPress={() => handleNavigateToDetails(item.id)}
+                onPress={() => handleNavigateToDetails(item.idMeal)}
               />
             </View>
           )}
