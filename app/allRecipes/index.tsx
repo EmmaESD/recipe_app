@@ -1,4 +1,5 @@
 import { useRouter } from "expo-router";
+import { useEffect, useState } from "react";
 import {
   Button,
   FlatList,
@@ -11,62 +12,21 @@ import {
 
 export default function AllRecipesScreen() {
   const router = useRouter();
-  const meals = [
-    {
-      id: 1,
-      title: "Spaghetti bolognaise",
-      description: "Des pâtes avec de la sauce tomate et de la viande hachée",
-      image:
-        "https://assets.afcdn.com/recipe/20160419/14652_w1024h1024c1cx2420cy1872.jpg",
-      category: "pasta",
-    },
-    {
-      id: 2,
-      title: "Salade César",
-      description:
-        "Une salade avec de la salade verte, du poulet, des croûtons et de la sauce César",
-      image: "https://images.ricardocuisine.com/services/recipes/8440.jpg",
-      category: "salad",
-    },
-    {
-      id: 3,
-      title: "Tarte aux pommes",
-      description: "Une tarte sucrée avec des pommes",
-      image:
-        "https://images.pexels.com/photos/5500480/pexels-photo-5500480.jpeg?auto=compress&cs=tinysrgb&w=600",
-      category: "dessert",
-    },
-    {
-      id: 4,
-      title: "Risotto aux champignons",
-      description: "Un risotto crémeux avec des champignons",
-      image:
-        "https://images.pexels.com/photos/15058970/pexels-photo-15058970/free-photo-of-nourriture-aliments-assiette-repas.jpeg?auto=compress&cs=tinysrgb&w=600",
-      category: "pasta",
-    },
-    {
-      id: 5,
-      title: "Salade niçoise",
-      description:
-        "Une salade avec des tomates, des oeufs, des olives, du thon et des haricots verts",
-      image:
-        "https://images.pexels.com/photos/29387634/pexels-photo-29387634.jpeg?auto=compress&cs=tinysrgb&w=600",
-      category: "salad",
-    },
-    {
-      id: 6,
-      title: "Tiramisu",
-      description:
-        "Un dessert italien avec du café, des biscuits et du mascarpone",
-      image:
-        "https://images.pexels.com/photos/29460805/pexels-photo-29460805.jpeg?auto=compress&cs=tinysrgb&w=600",
-      category: "dessert",
-    },
-  ];
+  const [meals, setMeals] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const mealJson = await fetch(
+        "https://www.themealdb.com/api/json/v1/1/search.php?s="
+      );
+      const meals = await mealJson.json();
+      setMeals(meals.meals);
+    })();
+  }, []);
 
   // Permet de naviguer vers une page selectionnée par un id.
-  const handleNavigateToDetails = (recipeId: Number) => {
-    router.push("allrecipes/" + recipeId);
+  const handleNavigateToDetails = (idMeal: Number) => {
+    router.push("allrecipes/" + idMeal);
   };
   return (
     <ScrollView>
@@ -83,8 +43,8 @@ export default function AllRecipesScreen() {
           data={meals}
           renderItem={({ item }) => (
             <View style={styles.recipeCard}>
-              <Text>{item.title}</Text>
-              <Image source={{ uri: item.image }} style={styles.image} />
+              <Text>{item.strMeal}</Text>
+              <Image source={{ uri: item.strMealThumb }} style={styles.image} />
               <Button
                 title="Voir la recette"
                 onPress={() => handleNavigateToDetails(item.id)}
