@@ -7,6 +7,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   View,
 } from "react-native";
 
@@ -14,6 +15,7 @@ export default function Index() {
   // Permet d'utiliser le hook use useRouter afin de naviguer vers differents screen.
   const router = useRouter();
   const [meals, setMeals] = useState([]);
+  const [text, setText] = useState("");
 
   useEffect(() => {
     (async () => {
@@ -36,6 +38,10 @@ export default function Index() {
   //permet de naviguer vers une page avec son ID
   const handleNavigateToDetails = (idMeal: Number) => {
     router.push("/recipes/" + idMeal);
+  };
+
+  const handleSubmit = (text: string) => {
+    router.push("/recipes/search/" + text);
   };
   return (
     <ScrollView>
@@ -96,6 +102,16 @@ export default function Index() {
               </View>
             )}
           />
+          <View style={styles.inputContent}>
+            <Text style={styles.h2}>Trouver une recette</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Tapez ici"
+              value={text}
+              onChangeText={(value) => setText(value)}
+            />
+            <Button title="Rechercher" onPress={handleSubmit} />
+          </View>
         </View>
         <View style={styles.footer}>
           <Text>cookio - tout droit réservé</Text>
@@ -115,6 +131,19 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
+    gap: 10,
+  },
+  input: {
+    height: 40,
+    borderColor: "gray",
+    borderWidth: 1,
+    width: "100%",
+    paddingHorizontal: 8,
+    marginBottom: 16,
+    borderRadius: 4,
+  },
+  inputContent: {
+    display: "flex",
     gap: 10,
   },
   footer: {

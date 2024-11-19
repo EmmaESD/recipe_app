@@ -17,6 +17,10 @@ export default function RootLayout() {
         name="recipes/[id]"
         options={{ title: "Details d'une recette", headerShown: false }}
       />
+      <Stack.Screen
+        name="recipes/search/[query]"
+        options={{ title: "recette trouvée", headerShown: false }}
+      />
     </Stack>
   );
 }

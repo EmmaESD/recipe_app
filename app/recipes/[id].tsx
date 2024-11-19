@@ -1,6 +1,6 @@
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 
 export default function RecipeDetailsScreen() {
   // permet de récuperer l'id de la recette sur laquelle on a cliqué ?
@@ -19,29 +19,31 @@ export default function RecipeDetailsScreen() {
   }, []);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Image
-          source={require("../../assets/images/recipe_app_logo_circular.png")}
-          style={styles.image}
-        />
-        <Text style={styles.h1}>Cookio</Text>
-      </View>
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Image
+            source={require("../../assets/images/recipe_app_logo_circular.png")}
+            style={styles.image}
+          />
+          <Text style={styles.h1}>Cookio</Text>
+        </View>
 
-      <View style={styles.content}>
-        <Text style={styles.category}>{meals.strCategory}</Text>
-        <Text style={styles.h1}>Details de la recette {id}</Text>
-        <Text style={styles.h2}>{meals.strMeal}</Text>
-        <Image
-          source={{ uri: meals.strMealThumb }}
-          style={styles.imageContent}
-        />
-        <Text>{meals.strInstruction}</Text>
+        <View style={styles.content}>
+          <Text style={styles.category}>{meals.strCategory}</Text>
+          <Text style={styles.h1}>Details de la recette {id}</Text>
+          <Text style={styles.h2}>{meals.strMeal}</Text>
+          <Image
+            source={{ uri: meals.strMealThumb }}
+            style={styles.imageContent}
+          />
+          <Text>{meals.strInstructions}</Text>
+        </View>
+        <View>
+          <Text>cookio - tout droit réservé</Text>
+        </View>
       </View>
-      <View>
-        <Text>cookio - tout droit réservé</Text>
-      </View>
-    </View>
+    </ScrollView>
   );
 }
 
