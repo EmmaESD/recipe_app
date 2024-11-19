@@ -1,5 +1,13 @@
 import { useRouter } from "expo-router";
-import { Button, FlatList, Image, StyleSheet, Text, View } from "react-native";
+import {
+  Button,
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 
 export default function AllRecipesScreen() {
   const router = useRouter();
@@ -61,29 +69,34 @@ export default function AllRecipesScreen() {
     router.push("allrecipes/" + recipeId);
   };
   return (
-    <View style={styles.container}>
-      <View style={styles.header}>
-        <Image
-          source={require("../../assets/images/recipe_app_logo_circular.png")}
-          style={styles.image}
+    <ScrollView>
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Image
+            source={require("../../assets/images/recipe_app_logo_circular.png")}
+            style={styles.image}
+          />
+          <Text style={styles.h1}>Cookio</Text>
+        </View>
+        <Text style={styles.h1}>Nos recettes</Text>
+        <FlatList
+          data={meals}
+          renderItem={({ item }) => (
+            <View style={styles.recipeCard}>
+              <Text>{item.title}</Text>
+              <Image source={{ uri: item.image }} style={styles.image} />
+              <Button
+                title="Voir la recette"
+                onPress={() => handleNavigateToDetails(item.id)}
+              />
+            </View>
+          )}
         />
-        <Text style={styles.h1}>Cookio</Text>
+        <View>
+          <Text>Cookio - Tout droit réservé</Text>
+        </View>
       </View>
-      <Text style={styles.h1}>Nos recettes</Text>
-      <FlatList
-        data={meals}
-        renderItem={({ item }) => (
-          <View style={styles.recipeCard}>
-            <Text>{item.title}</Text>
-            <Image source={{ uri: item.image }} style={styles.image} />
-            <Button
-              title="Voir la recette"
-              onPress={() => handleNavigateToDetails(item.id)}
-            />
-          </View>
-        )}
-      />
-    </View>
+    </ScrollView>
   );
 }
 

@@ -121,6 +121,7 @@ export default function Index() {
           //Les elements que l'on peut voir (lazy loading). */}
           <FlatList
             data={lastThreeMeals}
+            // Ces deux lignes permettent de faire un scroll horizontal
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             renderItem={({ item }) => (
@@ -135,7 +136,7 @@ export default function Index() {
             )}
           />
         </View>
-        <View>
+        <View style={styles.footer}>
           <Text>cookio - tout droit réservé</Text>
         </View>
       </View>
@@ -154,6 +155,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     gap: 10,
+  },
+  footer: {
+    display: "flex",
   },
   content: {
     display: "flex",
