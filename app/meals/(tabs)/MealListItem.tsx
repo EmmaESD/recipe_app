@@ -26,7 +26,7 @@ export default function AllRecipesScreen() {
 
   // Permet de naviguer vers une page selectionnée par un id.
   const handleNavigateToDetails = (idMeal: string) => {
-    router.push(`recipes/${idMeal}`);
+    router.push("meals/details/" + idMeal);
   };
   return (
     <ScrollView>

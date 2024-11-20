@@ -11,7 +11,6 @@ import {
 } from "react-native";
 
 export default function queryScreen() {
-  const router = useRouter();
   const { query } = useLocalSearchParams();
 
   const [meals, setMeals] = useState([]);

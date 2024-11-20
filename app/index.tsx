@@ -32,19 +32,24 @@ export default function Index() {
 
   //permet de naviguer vers un page
   const handleNavigateToAllRecipes = () => {
-    router.push("/recipes");
+    router.push("/meals/MealListItem");
   };
 
   //permet de naviguer vers une page avec son ID
   const handleNavigateToDetails = (idMeal: Number) => {
-    router.push("/recipes/" + idMeal);
+    router.push(`/meals/details/${idMeal}`);
   };
 
   const handleSubmit = () => {
-    router.push("/recipes/search/" + text);
+    router.push("/meals/search/" + text);
+  };
+
+  const navigateToUser = () => {
+    router.push("/user");
   };
   return (
     <ScrollView>
+      <Button title="user" onPress={navigateToUser} />
       <View style={styles.container}>
         <View style={styles.header}>
           <Image
