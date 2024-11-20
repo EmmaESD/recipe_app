@@ -22,6 +22,15 @@ export default function TabLayout() {
           ),
         }}
       />
+      <Tabs.Screen
+        name="create-meal"
+        options={{
+          title: "créer un recette",
+          tabBarIcon: ({ color }) => (
+            <Ionicons name="newspaper-outline" size={24} color={color} />
+          ),
+        }}
+      />
     </Tabs>
   );
 }
