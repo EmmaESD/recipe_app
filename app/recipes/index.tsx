@@ -33,7 +33,7 @@ export default function AllRecipesScreen() {
       <View style={styles.container}>
         <View style={styles.header}>
           <Image
-            source={require("../../assets/images/recipe_app_logo_circular.png")}
+            source={require("@/assets/images/recipe_app_logo_circular.png")}
             style={styles.image}
           />
           <Text style={styles.h1}>Cookio</Text>
