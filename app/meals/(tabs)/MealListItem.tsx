@@ -1,3 +1,4 @@
+import { useGetMeals } from "@/hook/useGetMeals";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import {
@@ -9,20 +10,22 @@ import {
   Text,
   View,
 } from "react-native";
+import { Swipeable } from "react-native-gesture-handler";
 
 export default function AllRecipesScreen() {
   const router = useRouter();
-  const [meals, setMeals] = useState([]);
 
-  useEffect(() => {
-    (async () => {
-      const mealJson = await fetch(
-        "https://www.themealdb.com/api/json/v1/1/search.php?s="
-      );
-      const meals = await mealJson.json();
-      setMeals(meals.meals);
-    })();
-  }, []);
+  // j'appelle le hook useGetMeals
+  // pour récupérer les recettes
+  const meals = useGetMeals();
+
+  const MealActions = () => {
+    return (
+      <View>
+        <Button title="Supprimer" />
+      </View>
+    );
+  };
 
   // Permet de naviguer vers une page selectionnée par un id.
   const handleNavigateToDetails = (idMeal: string) => {
@@ -42,14 +45,19 @@ export default function AllRecipesScreen() {
         <FlatList
           data={meals}
           renderItem={({ item }) => (
-            <View style={styles.recipeCard}>
-              <Text>{item.strMeal}</Text>
-              <Image source={{ uri: item.strMealThumb }} style={styles.image} />
-              <Button
-                title="Voir la recette"
-                onPress={() => handleNavigateToDetails(item.idMeal)}
-              />
-            </View>
+            <Swipeable renderRightActions={MealActions}>
+              <View style={styles.recipeCard}>
+                <Text>{item.strMeal}</Text>
+                <Image
+                  source={{ uri: item.strMealThumb }}
+                  style={styles.image}
+                />
+                <Button
+                  title="Voir la recette"
+                  onPress={() => handleNavigateToDetails(item.idMeal)}
+                />
+              </View>
+            </Swipeable>
           )}
         />
         <View>
