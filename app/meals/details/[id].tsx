@@ -1,3 +1,4 @@
+import { useGetId } from "@/hook/useGetId";
 import { useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
 import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
@@ -5,19 +6,7 @@ import { Image, ScrollView, StyleSheet, Text, View } from "react-native";
 export default function RecipeDetailsScreen() {
   // permet de récuperer l'id de la recette sur laquelle on a cliqué ?
   const { id } = useLocalSearchParams();
-
-  const [meals, setMeals] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      const mealJson = await fetch(
-        `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`
-      );
-      const meals = await mealJson.json();
-      setMeals(meals.meals[0]);
-    })();
-  }, []);
-
+  const meals = useGetId();
   return (
     <ScrollView>
       <View style={styles.container}>
